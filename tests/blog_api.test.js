@@ -16,7 +16,6 @@ beforeEach(async () => {
 })
 
 
-
 test('blogs are returned as json', async () => {
   await api
     .get('/api/blogs')
@@ -106,6 +105,12 @@ test("missing url",async () => {
   const blogsAtEnd = await helper.blogsInDb()
   expect(blogsAtEnd.length).toBe(helper.initialBlogs.length)
 })
+test("blog is deleted", async() => {
+  await api
+  .delete("/api/blogs/5a422a851b54a676234d17f7")
+  .expect(204)
+})
+
 
 
 afterAll(() => {
