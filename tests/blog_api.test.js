@@ -4,6 +4,8 @@ const app = require('../app')
 const api = supertest(app)
 const Blog = require("../models/blog")
 const helper = require('./test_helper')
+const bcrypt = require("bcrypt")
+const User = require("../models/user")
 
 
 beforeEach(async () => {
@@ -15,6 +17,39 @@ beforeEach(async () => {
  
 })
 
+
+describe("when there is one user at db", () => {
+  beforeEach(async () => {
+    await User.deleteMany({})
+
+    const passwordHash = await bcrypt.hash("sekret", 10)
+    const user = new User({ username: "root", passwordHash})
+    
+    await user.save()
+  })
+
+  test("creating succeeds with a new name", async () => {
+    const userAtStart = await helper.usersInDb()
+
+    const newUser = {
+      username :"randomderp",
+      name:"derp",
+      password: "salainen"
+    }
+
+    await api
+    .post("/api/users")
+    .send(newUser)
+    .expect(201)
+    .expect("Content-Type", /application\/json/)
+
+    const usersAtEnd = await helper.usersInDb()
+    expect(usersAtEnd).toHaveLength(userAtStart.length + 1)
+
+    const usernames = usersAtEnd.map(a => a.username)
+    expect(usernames).toContain(newUser.username)
+  })
+})
 
 test('blogs are returned as json', async () => {
   await api

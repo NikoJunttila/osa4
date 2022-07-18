@@ -1,9 +1,11 @@
 POST http://localhost:3001/api/blogs HTTP/1.1 
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXJuYW1lIiwiaWQiOiI2MmQ1NGM3M2MyZDJhMmY5NjEwMzY0ZDQiLCJpYXQiOjE2NTgxNTMyMzcsImV4cCI6MTY1ODE1NjgzN30.2BLA1-Ixdl5TnE0nl7DB1ER2uytIb4FeA2MVdgiD5WY
 
 {
-"title": "jokurandomkirja",
-"author": "kianto",
-"url":"google.com",
-"likes":"5"
+"title": "test",
+"author": "Oono,uke",
+"url":"https://myanimelist.net/manga/112922/Gokushufudou",
+"likes":"8",
+"userId":"62d4433ace8fdba9b6bc68ee"
 }
